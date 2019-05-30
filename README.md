@@ -3,6 +3,12 @@
 *ArgoCron* is a simple pod that triggers Argo Workflows using Kubernetes CronJobs. 
 Works as an alternative to set up a calendar system using argo-events.
 
+## Benefits over Argo Events
+
+* Simplier deploy and configuration
+* Can not allow concurrent runs (using concurrencyPolicy from Kubernetes)
+* Cleans up old Workflow pods before starting a new Worfklow
+
 ## Getting Started
 
 ArgoCron simply clones a Git repository and executes an `argo submit --watch` of a given workflow in the Git repository.
