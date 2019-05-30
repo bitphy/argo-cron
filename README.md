@@ -1,43 +1,38 @@
-# Argo Cron
+# ArgoCron
 
-*argo-cron* is a simple pod that triggers Argo Workflows using Kubernetes CronJobs. 
+*ArgoCron* is a simple pod that triggers Argo Workflows using Kubernetes CronJobs. 
 Works as an alternative to set up a calendar system using argo-events.
 
 ## Getting Started
 
-1. Install Argo in your Kubernetes cluster
-2. Foo
-3. bar
+ArgoCron simply clones a Git repository and executes an `argo submit --watch` of a given workflow in the Git repository.
+
+Also, in order to avoid older containers in the cluster, it can clean up and delete older containers before the execution of the cluster
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+[Install Argo](https://github.com/argoproj/argo/blob/master/demo.md) in your kubernetes cluster
 
-```
-Give examples
-```
+### Usage
 
-### Installing
+ 1. Create a git repository containing your workflows
+ 2. Download and configure [argo.cronjob.yaml](https://github.com/bitphy/argo-cron/blob/master/argo.cronjob.yaml)
 
-A step by step series of examples that tell you how to get a development env running
+    * Set the SSH Key secret
+    * Set the known_hosts secret
+    * Set the name of the workflow file
 
-Say what the step will be
+ 3. You can generate the fingerprints for `known_hosts` with `ssh-keyscan`:
+ ```
+ ssh-keyscan github.com OR ssh-keyscan bitbucket.com
+ ```
+ 3. Set the container ARGs as the name of the file containing the workflow
 
-```
-Give the example
-```
+### Docker container ENV variables
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+* **NAMESPACE** [`default`]: sets the namespace where to run the workflow in.
+* **OLDER** [`5d`]: deletes all the previous workflow runs previous to certain time
+* **GIT_BRANCH** [`master`]: git branch to be checked out to find the workflow
 
 
 ## Contributing
@@ -60,9 +55,8 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* BitPhy Team
+* Argo
 
 
 
