@@ -29,7 +29,7 @@ spec:
         spec:
           containers:
             - name: argo-cli
-              image: artifacts.bitphy.es/infra-tools/argo-cronjob:0.0
+              image: bitphy/argo-cron:latest
               imagePullPolicy: Always
               args: ["dag-diamond-steps.yaml"]
               tty: true 
