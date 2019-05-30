@@ -9,5 +9,5 @@ OLDER=${OLDER:-'5d'}
 git clone $GIT_REPO --branch $GIT_BRANCH .
 
 # Execute argo
-argo -n namespace delete --older $OLDER $@
+argo -n $NAMESPACE delete --older $OLDER $@
 argo -n $NAMESPACE submit --watch $@
