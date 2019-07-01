@@ -10,4 +10,4 @@ git clone $GIT_REPO --branch $GIT_BRANCH .
 
 # Execute argo
 argo -n $NAMESPACE delete --older $OLDER $@
-argo -n $NAMESPACE submit --watch $@
+argo -n $NAMESPACE submit --wait $@
