@@ -1,23 +1,9 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name:  git-ssh
-stringData:
-  private-key: |
-    -----BEGIN OPENSSH PRIVATE KEY-----
-    <PRIVATE_KEY>
-    -----END OPENSSH PRIVATE KEY-----
-  known-hosts: '<KNOWN_HOSTS>'
-  git-repo: git@github.com:bitphy/argo-cron.git
-  
----
-
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: argo-cron
 spec:
-  schedule: "30 16,17,18,19 * * *"
+  schedule: "7 * * * *"
   concurrencyPolicy: "Forbid"
   failedJobsHistoryLimit: 1
   startingDeadlineSeconds: 600 # 10 min
@@ -31,14 +17,16 @@ spec:
             - name: argo-cli
               image: bitphy/argo-cron:latest
               imagePullPolicy: Always
-              args: ["dag-diamond-steps.yaml"]
+              args: ["nodoambar-hourly-batch.workflow.yaml"]
               tty: true 
               env:
                 - name: NAMESPACE
                   value: dev
                 - name: OLDER
                   value: 5d
-                - name: SECRET_PASSWORD
+                - name: GIT_BRANCH
+                  value: ft/initial-shop-workflows
+                - name: GIT_REPO
                   valueFrom:
                     secretKeyRef:
                       name: git-ssh
