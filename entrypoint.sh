@@ -9,5 +9,6 @@ OLDER=${OLDER:-'5d'}
 git clone $GIT_REPO --branch $GIT_BRANCH .
 
 # Execute argo
-argo -n $NAMESPACE delete --older $OLDER $@
-argo -n $NAMESPACE submit --wait $@
+argo -n $NAMESPACE submit --wait $PARAMS  $@
+argo -n $NAMESPACE delete --completed
+
