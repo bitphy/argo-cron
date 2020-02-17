@@ -1,5 +1,5 @@
 # Image from where to copy argocli
-FROM argoproj/argocli:v2.3.0 as argocli
+FROM argoproj/argocli:v2.4.3 as argocli
 
 
 FROM alpine
